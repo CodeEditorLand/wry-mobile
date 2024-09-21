@@ -6,6 +6,7 @@ edition = "2018"
 
 [lib]
 crate-type = ["staticlib", "cdylib", "rlib"]
+path = "Source/lib.rs"
 
 [[bin]]
 name = "wry-mobile-desktop"
