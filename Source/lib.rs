@@ -1,5 +1,6 @@
-use mobile_entry_point::mobile_entry_point;
 use std::collections::HashMap;
+
+use mobile_entry_point::mobile_entry_point;
 use wry::{
 	application::{
 		dpi::LogicalSize,
@@ -14,14 +15,14 @@ use wry::{
 #[cfg(target_os = "android")]
 fn init_logging() {
 	android_logger::init_once(
-		android_logger::Config::default().with_min_level(log::Level::Trace).with_tag("wry-mobile"),
+		android_logger::Config::default()
+			.with_min_level(log::Level::Trace)
+			.with_tag("wry-mobile"),
 	);
 }
 
 #[cfg(not(target_os = "android"))]
-fn init_logging() {
-	simple_logger::SimpleLogger::new().init().unwrap();
-}
+fn init_logging() { simple_logger::SimpleLogger::new().init().unwrap(); }
 
 #[mobile_entry_point]
 fn main() {
@@ -46,20 +47,24 @@ fn main() {
 					.build()
 					.unwrap();
 				weviews.insert(window_id, weview);
-			}
+			},
 			Event::Resumed => {
 				println!("applicationDidBecomeActive");
-			}
+			},
 			Event::Suspended => {
 				println!("applicationWillResignActive");
-			}
+			},
 			Event::LoopDestroyed => {
 				println!("applicationWillTerminate");
-			}
-			Event::WindowEvent { window_id, event: WindowEvent::Touch(touch), .. } => {
+			},
+			Event::WindowEvent {
+				window_id,
+				event: WindowEvent::Touch(touch),
+				..
+			} => {
 				println!("touch on {:?} {:?}", window_id, touch);
-			}
-			_ => {}
+			},
+			_ => {},
 		}
 	});
 }
