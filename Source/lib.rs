@@ -57,11 +57,7 @@ fn main() {
 			Event::LoopDestroyed => {
 				println!("applicationWillTerminate");
 			},
-			Event::WindowEvent {
-				window_id,
-				event: WindowEvent::Touch(touch),
-				..
-			} => {
+			Event::WindowEvent { window_id, event: WindowEvent::Touch(touch), .. } => {
 				println!("touch on {:?} {:?}", window_id, touch);
 			},
 			_ => {},
