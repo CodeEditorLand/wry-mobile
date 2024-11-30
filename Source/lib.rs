@@ -27,17 +27,20 @@ fn init_logging() { simple_logger::SimpleLogger::new().init().unwrap(); }
 #[mobile_entry_point]
 fn main() {
 	init_logging();
+
 	let event_loop = EventLoop::new();
 
 	let mut weviews = HashMap::new();
 
 	event_loop.run(move |event, event_loop, control_flow| {
 		*control_flow = ControlFlow::Wait;
+
 		match event {
 			Event::NewEvents(StartCause::Init) => {
 				println!("Init");
 
 				let window = WindowBuilder::new().build(&event_loop).unwrap();
+
 				let window_id = window.id();
 
 				let weview = WebViewBuilder::new(window)
@@ -46,6 +49,7 @@ fn main() {
 					.unwrap()
 					.build()
 					.unwrap();
+
 				weviews.insert(window_id, weview);
 			},
 			Event::Resumed => {
